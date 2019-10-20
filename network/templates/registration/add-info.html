@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>DeFire | Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+      .head{
+        background-color: LightGray;
+        height: 30%;
+        margin-top: 10%;
+        margin-left: 10%;
+        margin-right: 10%;
+        padding: 10%;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 150%;
+      }
+      #map{
+        height: 500px;
+        width: 500px;
+        margin-left:25%;
+      }
+    </style>
+  </head>
+  <body>
+        <h1>Shit</h1>
+
+    <div class = "head"><h1 style = "color: red; font-weight: bold;">Hey {{username}}!</h1>
+              <div id="map"></div>
+      <form method = "post">
+          {% csrf_token %}
+          {{form.as_p}}
+        <button type = "submit" class = "btn-primary">Submit</button>
+      </form>
+      {{form.errors}}
+    </div>
+
+    <div id="latclicked"></div>
+    <div id="longclicked"></div>
+
+    <div id="latmoved"></div>
+    <div id="longmoved"></div>
+
+    <script type="text/javascript">
+     var map;
+
+     function initMap() {
+         var latitude = 27.7172453; // YOUR LATITUDE VALUE
+         var longitude = 85.3239605; // YOUR LONGITUDE VALUE
+
+         var myLatLng = {lat: latitude, lng: longitude};
+
+         map = new google.maps.Map(document.getElementById('map'), {
+           center: myLatLng,
+           zoom: 14,
+           disableDoubleClickZoom: true, // disable the default map zoom on double click
+         });
+
+         // Update lat/long value of div when anywhere in the map is clicked
+         google.maps.event.addListener(map,'click',function(event) {
+             document.getElementById('id_long').value = event.latLng.lat();
+             document.getElementById('id_lat').value =  event.latLng.lng();
+         });
+
+
+
+
+
+         // Create new marker on double click event on the map
+         google.maps.event.addListener(map,'dblclick',function(event) {
+             var marker = new google.maps.Marker({
+               position: event.latLng,
+               map: map,
+               title: event.latLng.lat()+', '+event.latLng.lng()
+             });
+
+         });
+
+         // Create new marker on single click event on the map
+         /*google.maps.event.addListener(map,'click',function(event) {
+             var marker = new google.maps.Marker({
+               position: event.latLng,
+               map: map,
+               title: event.latLng.lat()+', '+event.latLng.lng()
+             });
+         });*/
+     }
+     </script>
+    <!--Load the API from the specified URL
+    * The async attribute allows the browser to render the page while the API loads
+    * The key parameter will contain your own API key (which is not needed for this tutorial)
+    * The callback parameter executes the initMap() function
+    -->
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap">
+    </script>
+
+  </body>
+</html>

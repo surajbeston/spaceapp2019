@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>DeFire | Login</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+      .head{
+        background-color: LightGray;
+        height: 30%;
+        margin-top: 10%;
+        margin-left: 10%;
+        margin-right: 10%;
+        padding: 10%;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 150%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class = "head"><h1 style = "color: red; font-weight: bold;">DeFire Sign Up</h1>
+      <form method = "post">
+          {% csrf_token %}
+          {{ form.username.label_tag }} {{form.username}} <br/><br/>
+          {{ form.password1.label_tag }} {{form.password1}} <br/><br/>
+          {{ form.password2.label_tag }} {{form.password2}}<br/><br/>
+        <button type = "submit" class = "btn-primary">Submit</button>
+      </form>
+      {{form.errors}}
+    </div>
+
+  </body>
+</html>
